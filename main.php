@@ -15,15 +15,15 @@ foreach (explode("\n", file_get_contents($argv[1])) as $row) {
 
   $rowData = json_decode($row, true);
 
-  $countryCode = $calculateCommission->BinProvider($rowData['bin']);
-  $rate = $calculateCommission->currencyRateProvider($rowData['currency']);
-  $amountAfter = $calculateCommission->getAmountAfter($rate, $rowData['currency'], $rowData['amount']);
+  $countryCode = $calculateCommission->getCountryCodeByCardNumber($rowData['bin']);
+  $rate = $calculateCommission->getRateByCurrency($rowData['currency']);
+  $amount = $calculateCommission->getAmountBasedOnRateAndCurrency($rate, $rowData['currency'], $rowData['amount']);
   
   $isEu = $calculateCommission->isEu($countryCode);
   $commissionRate = $calculateCommission->getCommissionRate($isEu);
   
-  $finalAmount = $calculateCommission->applyRate($amountAfter, $commissionRate);
+  $finalAmount = $calculateCommission->applyCommission($amount, $commissionRate);
 
-  echo $countryCode. ' ==> '. $rate. ' --> '. $amountAfter. ' --> '. $finalAmount;
+  echo $finalAmount;
   print "\n";
 }

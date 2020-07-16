@@ -38,19 +38,29 @@ class CalculateCommission
     return $isEu ? 0.01 : 0.02;
   }
 
-  public function BinProvider($cardNumber) {
+  public function getCountryCodeByCardNumber($cardNumber) {
     $this->binProvider->loadMetaDataByCard($cardNumber);
     return $this->binProvider->getCoutryCode();
   }
 
-  public function currencyRateProvider($currency) {
+  public function getRateByCurrency($currency) {
     $this->rateProvider->load();
     return $this->rateProvider->getRate($currency);
   }
 
-  public function getAmountAfter($rate, $currency, $amount) {
-    $amountFixed = $amount;
-    if ($currency !== 'EUR' or $rate > 0) {
+  /**
+   * Get amount based on currency and rate
+   * 
+   * @param rate int
+   * @param currency string
+   * @param amount float
+   * 
+   * @return float
+   */
+  public function getAmountBasedOnRateAndCurrency($rate, $currency, $amount) {
+    if ($currency === 'EUR' or $rate === 0) {
+      $amountFixed = $amount;
+    } elseif ($currency !== 'EUR' or $rate > 0) {
         $amountFixed = $amount / $rate;
     }
 
@@ -64,7 +74,7 @@ class CalculateCommission
    * @param commissionRate float
    * @return float
    */
-  public function applyRate($amount, $commissionRate) {
+  public function applyCommission($amount, $commissionRate) {
     return round($amount * $commissionRate, 2);
   }
 }

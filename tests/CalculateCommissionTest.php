@@ -26,9 +26,10 @@ final class CalculateCommissionTest extends TestCase
         $this->assertEquals($this->calculateCommission->getCommissionRate(false), 0.02);
     }
 
-    public function testGetAmountAfter(): void
+    public function testGetAmountBasedOnRateAndCurrency(): void
     {
-        // $this->assertEquals($this->calculateCommission->getAmountAfter(true), 0.01);
-        // $this->assertEquals($this->calculateCommission->getAmountAfter(false), 0.02);
+        $this->assertEquals($this->calculateCommission->getAmountBasedOnRateAndCurrency(0, 'EUR', 100), 100);
+        $this->assertEquals($this->calculateCommission->getAmountBasedOnRateAndCurrency(2, 'BDT', 100), 50);
+        $this->assertEquals($this->calculateCommission->getAmountBasedOnRateAndCurrency(0, 'BDT', 100), 100);
     }
 }
