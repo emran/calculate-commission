@@ -40,7 +40,7 @@ class CalculateCommission
 
   public function getCountryCodeByCardNumber($cardNumber) {
     $this->binProvider->loadMetaDataByCard($cardNumber);
-    return $this->binProvider->getCoutryCode();
+    return $this->binProvider->getCountryCode();
   }
 
   public function getRateByCurrency($currency) {

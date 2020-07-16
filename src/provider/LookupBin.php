@@ -10,7 +10,7 @@ class LookupBin implements Bin
     $result = file_get_contents($this->URL.$cardNumber);
     $this->result = json_decode($result);
   }
-  public function getCoutryCode() {
+  public function getCountryCode() {
     return $this->result->country->alpha2;
   }
 }
