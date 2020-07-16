@@ -17,7 +17,7 @@ class CalculateCommission
     $this->binProvider = $bin;
     $this->rateProvider = $rate;
   }
-  
+
   /**
    * Determine country code is EU supported or not
    * 
@@ -38,27 +38,12 @@ class CalculateCommission
     return $isEu ? 0.01 : 0.02;
   }
 
-  /**
-   * 
-   * @TODO refactor to accept provider
-   */
   public function BinProvider($cardNumber) {
-    // $binResults = file_get_contents('https://lookup.binlist.net/' .$cardNumber);
-    // if (!$binResults) {
-    //   return 'Failed to load card metadata';
-    // }
-    // $r = json_decode($binResults);
-    
-    // return $r->country->alpha2;
     $this->binProvider->loadMetaDataByCard($cardNumber);
     return $this->binProvider->getCoutryCode();
   }
 
-  // @TODO refactor to accept multiple provider
   public function currencyRateProvider($currency) {
-    // $rate = @json_decode(file_get_contents('https://api.exchangeratesapi.io/latest'), true)['rates'][$currency];
-
-    // return $rate;
     $this->rateProvider->load();
     return $this->rateProvider->getRate($currency);
   }
