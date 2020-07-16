@@ -1,5 +1,5 @@
 <?php
-require('CurrencyRate.php');
+require(__DIR__ .'/../interface/CurrencyRate.php');
 
 class ExchangeRate implements CurrencyRate
 {
@@ -9,7 +9,7 @@ class ExchangeRate implements CurrencyRate
   public function load() {
     $this->result = @json_decode(file_get_contents($this->URL), true);
   }
-  public function getRate($currency) {
+  public function getRate(string $currency) {
     return $this->result['rates'][$currency];
   }
 }

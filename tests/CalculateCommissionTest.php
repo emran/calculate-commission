@@ -10,7 +10,7 @@ final class CalculateCommissionTest extends TestCase
     {
         parent::__construct();
 
-        $this->calculateCommission = new CalculateCommission();
+        $this->calculateCommission = new CalculateCommission(new LookupBin(), new ExchangeRate());
     }
     
     public function testIsEu(): void

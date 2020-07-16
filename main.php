@@ -2,9 +2,7 @@
 error_reporting( E_ALL );
 ini_set( "display_errors", 1 );
 
-require('./src/CalculateCommission.php');
-require_once('./src/LookupBin.php');
-require_once('./src/ExchangeRate.php');
+require "./vendor/autoload.php";
 
 $binProvider = new LookupBin();
 $rateProvider = new ExchangeRate();
